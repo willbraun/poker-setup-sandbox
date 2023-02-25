@@ -7,10 +7,10 @@
 </script>
 
 <div class="rule row">
-	<div class="label px-0 col-8">
+	<div class="label px-0 col-9">
 		<label for={id}>{title}</label>
 	</div>
-	<div class="px-0 col-4">
+	<div class="px-0 ml-auto col-3">
 		<input
 			class="num-input"
 			value={value || ''}
@@ -39,6 +39,8 @@
 
 	.num-input {
 		width: 100%;
+		max-width: 5rem;
+		float: right;
 		text-align: center;
 	}
 

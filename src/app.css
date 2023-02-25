@@ -17,6 +17,10 @@ body {
 	margin: 0;
 }
 
+section {
+	/* border: 1px solid black; */
+}
+
 h1,
 h2,
 h3,
@@ -27,10 +31,6 @@ h6 {
 	padding: 0;
 }
 
-.subheader {
-	display: block;
-}
-
 .num-input {
 	height: 2.4rem;
 	border-radius: 0.5rem;
@@ -39,7 +39,31 @@ h6 {
 	outline: none;
 }
 
-/* .num-input:focus {
-	background-color: lightgreen;
-	transition: 0.2s;
+.subheader {
+	display: block;
+	padding: 0.5rem 1rem 0;
+}
+
+.subheader > h2 {
+	font-size: 1.7rem;
+}
+
+/* .accordion-header {
+	display: none;
+} */
+
+.accordion-button {
+	padding: 12px !important;
+	font-size: 1.5rem !important;
+}
+
+/* 
+@media (width < 768px) {
+	.subheader {
+		display: none;
+	}
+
+	.accordion-header {
+		display: block;
+	}
 } */
