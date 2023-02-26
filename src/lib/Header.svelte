@@ -5,7 +5,7 @@
 <style>
 	header {
 		position: fixed;
-		border-bottom: 1px solid var(--border-color);
+		border-bottom: 1px solid #ccc;
 		height: var(--header-height);
 		display: flex;
 		align-items: center;

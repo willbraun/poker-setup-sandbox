@@ -4,20 +4,22 @@
 	import Chips from './lib/Chips.svelte'
 	import Checklist from './lib/Checklist.svelte'
 
-	$: data = {
-		rules: {
-			players: 0,
-			buyin: 0,
-			smallBlind: 0,
-			bigBlind: 0,
-			buyinOverBBMin: 0,
-			buyinOverBBMax: 0,
-		},
-		chips: [
-			{
-				// color, total count, chip value, player count
-			},
-		],
+	let rules = {
+		players: 0,
+		buyin: 0,
+		smallBlind: 0,
+		bigBlind: 0,
+		buyinOverBBMin: 0,
+		buyinOverBBMax: 0,
+	}
+	let chips: [
+		{
+			// color, total count, chip value, player count
+		}
+	]
+
+	const updateRules = (key: string, value: number) => {
+		rules = { ...rules, [key]: value }
 	}
 
 	// Once data is figured out, add updateData function, pass down to GameRules, RuleRow, Chips, ChipRow, etc

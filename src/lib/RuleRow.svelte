@@ -1,26 +1,17 @@
 <script lang="ts">
-	import { formatDecimal } from '../util'
+	import NumInput from './NumInput.svelte'
+	import { createEventDispatcher } from 'svelte'
+	export let id: string, title: string, format: Function
 
-	$: value = 0
-
-	export let id: string, title: string, isMoney: boolean
+	let value = 0
 </script>
 
 <div class="rule row">
-	<div class="label px-0 col-9">
+	<div class="label col-9">
 		<label for={id}>{title}</label>
 	</div>
 	<div class="px-0 ml-auto col-3">
-		<input
-			class="num-input"
-			value={value || ''}
-			{id}
-			type="number"
-			min="0"
-			on:change={e => {
-				if (isMoney) value = formatDecimal(e.currentTarget.value)
-			}}
-		/>
+		<NumInput {format} />
 	</div>
 </div>
 
@@ -35,24 +26,5 @@
 	label {
 		display: flex;
 		font-size: 1.1rem;
-	}
-
-	.num-input {
-		width: 100%;
-		max-width: 5rem;
-		float: right;
-		text-align: center;
-	}
-
-	/* Chrome, Safari, Edge, Opera */
-	input::-webkit-outer-spin-button,
-	input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
-	}
-
-	/* Firefox */
-	input[type='number'] {
-		-moz-appearance: textfield;
 	}
 </style>

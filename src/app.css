@@ -5,8 +5,6 @@
 	--header-height: 4rem;
 	--game-rules-width: 15rem;
 	--game-rules-height: 10rem;
-	--content-height: calc(100vh - var(--header-height));
-	--border-color: #bbb;
 }
 
 * {
@@ -19,6 +17,7 @@ body {
 
 section {
 	/* border: 1px solid black; */
+	padding: 1rem;
 }
 
 h1,
@@ -41,29 +40,22 @@ h6 {
 
 .subheader {
 	display: block;
-	padding: 0.5rem 1rem 0;
+	position: sticky;
+	/* padding: 0.5rem 1rem 0; */
 }
 
 .subheader > h2 {
 	font-size: 1.7rem;
 }
 
-/* .accordion-header {
-	display: none;
-} */
-
-.accordion-button {
-	padding: 12px !important;
-	font-size: 1.5rem !important;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
-/* 
-@media (width < 768px) {
-	.subheader {
-		display: none;
-	}
-
-	.accordion-header {
-		display: block;
-	}
-} */
+/* Firefox */
+input[type='number'] {
+	-moz-appearance: textfield;
+}
