@@ -1,9 +1,7 @@
 <script lang="ts">
 	import NumInput from './NumInput.svelte'
-	import { createEventDispatcher } from 'svelte'
-	export let id: string, title: string, format: Function
-
-	let value = 0
+	import type { Writable } from 'svelte/store'
+	export let id: string, title: string, format: Function, storedValue: Writable<number>
 </script>
 
 <div class="rule row">
@@ -11,7 +9,7 @@
 		<label for={id}>{title}</label>
 	</div>
 	<div class="px-0 ml-auto col-3">
-		<NumInput {format} />
+		<NumInput {format} {storedValue} />
 	</div>
 </div>
 
