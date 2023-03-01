@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { formatDecimal } from '../util'
+	import type { ChipRowData2 } from '../store'
+	import NumInput from './NumInput.svelte'
+	import { formatDecimal, formatInteger } from '../util'
+	export let chipRowData: ChipRowData2
 
-	$: color = ''
-	$: totalCount = 0
-	$: chipValue = 0
-	$: playerCount = 0
+	let totalCount = chipRowData.totalCount
 </script>
 
 <div class="chip-row row">
@@ -15,34 +15,21 @@
 		<p>X</p>
 	</div>
 	<div class="border-end col-2">
-		<input class="num-input" value={totalCount || ''} type="number" min="0" />
+		<NumInput id={`red-total-count`} format={formatInteger} bind:value={$totalCount} />
 	</div>
 	<div class="border-end col-2">
-		<input
-			class="num-input"
-			value={chipValue || ''}
-			type="number"
-			min="0"
-			on:change={e => {
-				chipValue = Number(e.currentTarget.value)
-			}}
-		/>
+		<!-- <NumInput id={`${chipRowData.color}-value`} format={formatDecimal} value={chipRowData.value} /> -->
 	</div>
 	<div class="border-end col-2">
-		<p>${totalCount * chipValue}</p>
+		<!-- <p>${chipRowData.totalCount * chipRowData.value}</p> -->
 	</div>
 	<div class="border-end col-2">
-		<input class="num-input" value={playerCount || ''} type="number" min="0" />
+		<!-- <NumInput id={`${chipRowData.color}-player-count`} format={formatInteger} value={chipRowData.playerCount} /> -->
 	</div>
 	<div class="border-end col-2">
-		<p>${playerCount * chipValue}</p>
+		<!-- <p>${chipRowData.playerCount * chipRowData.value}</p> -->
 	</div>
 </div>
 
 <style>
-	.num-input {
-		width: 100%;
-		/* max-width: 5rem; */
-		text-align: center;
-	}
 </style>

@@ -3,40 +3,19 @@
 	import GameRules from './lib/GameRules.svelte'
 	import Chips from './lib/Chips.svelte'
 	import Checklist from './lib/Checklist.svelte'
-
-	let rules = {
-		players: 0,
-		buyin: 0,
-		smallBlind: 0,
-		bigBlind: 0,
-		buyinOverBBMin: 0,
-		buyinOverBBMax: 0,
-	}
-	let chips: [
-		{
-			// color, total count, chip value, player count
-		}
-	]
-
-	const updateRules = (key: string, value: number) => {
-		rules = { ...rules, [key]: value }
-	}
-
-	// Once data is figured out, add updateData function, pass down to GameRules, RuleRow, Chips, ChipRow, etc
-	// Try to do this without prop drilling, just imports if possible
 </script>
 
 <div>
 	<Header />
 	<main>
 		<div class="row">
-			<div class="col-xs-12 col-md-3">
+			<div class="col-xs-12 col-md-3 col-xxl-2">
 				<GameRules />
 			</div>
-			<div class="col-xs-12 col-md-6">
+			<div class="col-xs-12 col-md-6 col-xxl-8">
 				<Chips />
 			</div>
-			<div class="col-xs-12 col-md-3">
+			<div class="col-xs-12 col-md-3 col-xxl-2">
 				<Checklist />
 			</div>
 		</div>

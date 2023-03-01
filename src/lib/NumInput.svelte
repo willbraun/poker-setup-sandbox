@@ -1,29 +1,30 @@
 <script lang="ts">
-	import type { Writable } from 'svelte/store'
-	export let format: Function, storedValue: Writable<number>
+	import type { nullableNum } from './../store'
+	export let id: string, format: Function, value: nullableNum
+
+	const toNullableNum = (display: string): nullableNum => {
+		if (display === '') return null
+		return Number(display)
+	}
 
 	let rawValue: string = ''
-	$: displayString = format(rawValue)
-	$: $storedValue = Number(displayString)
+	$: displayString = format(rawValue) as string
+	$: value = toNullableNum(displayString)
 </script>
 
 <input
 	class="num-input"
+	{id}
 	value={displayString}
-	type="number"
-	min="0"
 	on:change={e => {
 		const input = e.currentTarget.value
-		if (input === '') {
-			rawValue = ''
-			return
-		}
+		const inputNum = Number(input)
 
-		if (Number(input) >= 0 && format(input) !== displayString) {
-			rawValue = input
-		} else {
-			displayString = ''
+		if (Number.isNaN(inputNum) || inputNum < 0 || format(input) === displayString) {
+			displayString += ' '
 			displayString = format(rawValue)
+		} else {
+			rawValue = input
 		}
 	}}
 />

@@ -1,4 +1,5 @@
 <script>
+	import { redChip, greenChip, blackChip } from '../store'
 	import ChipRow from './ChipRow.svelte'
 
 	const gridSize = [2, 2, 2, 2, 2, 2]
@@ -31,7 +32,7 @@
 			</div>
 		</div>
 		<div class="table-body row">
-			<ChipRow />
+			<ChipRow chipRowData={redChip} />
 		</div>
 		<div class="table-footer border-top row">
 			<div class="border-end col-2">

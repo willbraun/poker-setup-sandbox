@@ -1,15 +1,16 @@
 <script lang="ts">
+	import type { StoreNumber } from '../store'
 	import NumInput from './NumInput.svelte'
 	import type { Writable } from 'svelte/store'
-	export let id: string, title: string, format: Function, storedValue: Writable<number>
+	export let id: string, title: string, format: Function, storedValue: StoreNumber
 </script>
 
 <div class="rule row">
 	<div class="label col-9">
 		<label for={id}>{title}</label>
 	</div>
-	<div class="px-0 ml-auto col-3">
-		<NumInput {format} {storedValue} />
+	<div class="px-0 col-3">
+		<NumInput {id} {format} bind:value={$storedValue} />
 	</div>
 </div>
 
