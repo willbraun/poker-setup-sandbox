@@ -1,8 +1,8 @@
 <script>
-	import { redChip, greenChip, blackChip } from '../store'
+	import { activeChips, redChip, greenChip, blackChip, sumTotalCount } from '../store'
 	import ChipRow from './ChipRow.svelte'
 
-	const gridSize = [2, 2, 2, 2, 2, 2]
+	$: console.log($sumTotalCount)
 </script>
 
 <section>
@@ -19,7 +19,7 @@
 				<p>Total Count</p>
 			</div>
 			<div class="border-end col-2">
-				<p>Chip Value</p>
+				<p>Chip Value ($)</p>
 			</div>
 			<div class="border-end col-2">
 				<p>Total Value</p>
@@ -33,13 +33,15 @@
 		</div>
 		<div class="table-body row">
 			<ChipRow chipRowData={redChip} />
+
+			<!-- If no rows, show a "Click plus to add a row" message as the row -->
 		</div>
 		<div class="table-footer border-top row">
 			<div class="border-end col-2">
 				<p>Total</p>
 			</div>
 			<div class="border-end col-2">
-				<p>SUM OF COUNT</p>
+				<p>{$sumTotalCount}</p>
 			</div>
 			<div class="border-end col-2">
 				<p>-</p>

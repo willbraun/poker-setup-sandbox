@@ -1,17 +1,10 @@
-import { writable } from 'svelte/store'
+import { writable, get } from 'svelte/store'
 import type { Writable } from 'svelte/store'
 
 export type nullableNum = number | null
 export type StoreNumber = Writable<nullableNum>
 
 export interface ChipRowData {
-	color: Writable<string>
-	totalCount: StoreNumber
-	value: StoreNumber
-	playerCount: StoreNumber
-}
-
-export interface ChipRowData2 {
 	color: Writable<string>
 	totalCount: StoreNumber
 	value: StoreNumber
@@ -25,49 +18,45 @@ export const bigBlind: StoreNumber = writable(null)
 export const buyInOverBBMin: StoreNumber = writable(null)
 export const buyInOverBBMax: StoreNumber = writable(null)
 
-// like this, I have to pass chipData into every chiprow so that it can update just the row it needs
-// export const chipData: Writable<ChipRowData[]> = writable([
-// 	{
-// 		color: 'red',
-// 		totalCount: 10,
-// 		value: 0.05,
-// 		playerCount: 3,
-// 	},
-// 	{
-// 		color: 'green',
-// 		totalCount: 10,
-// 		value: 0.25,
-// 		playerCount: 3,
-// 	},
-// 	{
-// 		color: 'black',
-// 		totalCount: 10,
-// 		value: 1.0,
-// 		playerCount: 5,
-// 	},
-// ])
-
-export const redChip: ChipRowData2 = {
+export const redChip: ChipRowData = {
 	color: writable('red'),
 	totalCount: writable(null),
 	value: writable(null),
 	playerCount: writable(null),
 }
 
-export const greenChip: ChipRowData2 = {
+export const greenChip: ChipRowData = {
 	color: writable('green'),
 	totalCount: writable(null),
 	value: writable(null),
 	playerCount: writable(null),
 }
 
-export const blackChip: ChipRowData2 = {
+export const blackChip: ChipRowData = {
 	color: writable('black'),
 	totalCount: writable(null),
 	value: writable(null),
 	playerCount: writable(null),
 }
 
-redChip.totalCount.subscribe(value => {
-	console.log(value)
+const blankChip: ChipRowData = {
+	color: writable(''),
+	totalCount: writable(null),
+	value: writable(null),
+	playerCount: writable(null),
+}
+
+// make this a writable array once we add new colors
+export const activeChips = [redChip, greenChip, blackChip]
+
+export let sumTotalCount: StoreNumber = writable(0)
+
+const getSumTotalCount = () => {
+	sumTotalCount.set(activeChips.map(chip => get(chip.totalCount)).reduce((a, b) => a + b))
+}
+
+redChip.totalCount.subscribe(_ => {
+	getSumTotalCount()
 })
+
+sumTotalCount.subscribe(value => console.log(value))
