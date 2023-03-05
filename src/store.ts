@@ -4,13 +4,6 @@ import type { Writable } from 'svelte/store'
 export type nullableNum = number | null
 export type StoreNumber = Writable<nullableNum>
 
-export interface ChipRowData {
-	color: Writable<string>
-	totalCount: StoreNumber
-	value: StoreNumber
-	playerCount: StoreNumber
-}
-
 export const players: StoreNumber = writable(null)
 export const buyIn: StoreNumber = writable(null)
 export const smallBlind: StoreNumber = writable(null)
@@ -18,45 +11,58 @@ export const bigBlind: StoreNumber = writable(null)
 export const buyInOverBBMin: StoreNumber = writable(null)
 export const buyInOverBBMax: StoreNumber = writable(null)
 
-export const redChip: ChipRowData = {
-	color: writable('red'),
-	totalCount: writable(null),
-	value: writable(null),
-	playerCount: writable(null),
+class Chip {
+	color: Writable<string> = writable('')
+	totalCount: StoreNumber = writable(null)
+	value: StoreNumber = writable(null)
+	playerCount: StoreNumber = writable(null)
+
+	constructor(color: string) {
+		this.color.set(color)
+	}
 }
 
-export const greenChip: ChipRowData = {
-	color: writable('green'),
-	totalCount: writable(null),
-	value: writable(null),
-	playerCount: writable(null),
-}
+export interface ChipData extends Chip {}
 
-export const blackChip: ChipRowData = {
-	color: writable('black'),
-	totalCount: writable(null),
-	value: writable(null),
-	playerCount: writable(null),
-}
+const chipColors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'white', 'black', 'brown']
+const allChips = chipColors.map(color => new Chip(color))
 
-const blankChip: ChipRowData = {
-	color: writable(''),
-	totalCount: writable(null),
-	value: writable(null),
-	playerCount: writable(null),
-}
-
-// make this a writable array once we add new colors
-export const activeChips = [redChip, greenChip, blackChip]
+export const activeChips = allChips.slice(0, 3)
 
 export let sumTotalCount: StoreNumber = writable(0)
+export let sumTotalValue: StoreNumber = writable(0)
+export let sumPlayerCount: StoreNumber = writable(0)
+export let sumPlayerValue: StoreNumber = writable(0)
 
 const getSumTotalCount = () => {
 	sumTotalCount.set(activeChips.map(chip => get(chip.totalCount)).reduce((a, b) => a + b))
 }
 
-redChip.totalCount.subscribe(_ => {
-	getSumTotalCount()
-})
+const getSumTotalValue = () => {
+	sumTotalValue.set(activeChips.map(chip => get(chip.totalCount) * get(chip.value)).reduce((a, b) => a + b))
+}
 
-sumTotalCount.subscribe(value => console.log(value))
+const getSumPlayerCount = () => {
+	sumPlayerCount.set(activeChips.map(chip => get(chip.playerCount)).reduce((a, b) => a + b))
+}
+
+const getSumPlayerValue = () => {
+	sumPlayerValue.set(activeChips.map(chip => get(chip.playerCount) * get(chip.value)).reduce((a, b) => a + b))
+}
+
+allChips.forEach(chip => {
+	chip.totalCount.subscribe(_ => {
+		getSumTotalCount()
+		getSumTotalValue()
+	})
+
+	chip.value.subscribe(_ => {
+		getSumTotalValue()
+		getSumPlayerValue()
+	})
+
+	chip.playerCount.subscribe(_ => {
+		getSumPlayerCount()
+		getSumPlayerValue()
+	})
+})

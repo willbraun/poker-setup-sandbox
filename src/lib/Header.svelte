@@ -11,6 +11,8 @@
 		align-items: center;
 		padding: 0 0 0 1rem;
 		width: 100%;
+		background-color: #fff;
+		z-index: 10;
 	}
 
 	h1 {

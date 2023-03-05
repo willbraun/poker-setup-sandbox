@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { StoreNumber } from '../store'
 	import NumInput from './NumInput.svelte'
-	import type { Writable } from 'svelte/store'
 	export let id: string, title: string, format: Function, storedValue: StoreNumber
 </script>
 

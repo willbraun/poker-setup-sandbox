@@ -1,8 +1,7 @@
 <script>
-	import { activeChips, redChip, greenChip, blackChip, sumTotalCount } from '../store'
+	import { activeChips, sumTotalCount, sumTotalValue, sumPlayerCount, sumPlayerValue } from '../store'
 	import ChipRow from './ChipRow.svelte'
-
-	$: console.log($sumTotalCount)
+	import { formatMoney } from '../util'
 </script>
 
 <section>
@@ -19,7 +18,7 @@
 				<p>Total Count</p>
 			</div>
 			<div class="border-end col-2">
-				<p>Chip Value ($)</p>
+				<p>Chip Value</p>
 			</div>
 			<div class="border-end col-2">
 				<p>Total Value</p>
@@ -32,11 +31,13 @@
 			</div>
 		</div>
 		<div class="table-body row">
-			<ChipRow chipRowData={redChip} />
+			{#each activeChips as chip}
+				<ChipRow {chip} />
+			{/each}
 
 			<!-- If no rows, show a "Click plus to add a row" message as the row -->
 		</div>
-		<div class="table-footer border-top row">
+		<div class="table-footer row">
 			<div class="border-end col-2">
 				<p>Total</p>
 			</div>
@@ -47,17 +48,20 @@
 				<p>-</p>
 			</div>
 			<div class="border-end col-2">
-				<p>SUM OF TOTAL COUNT</p>
+				<p>${formatMoney($sumTotalValue)}</p>
 			</div>
 			<div class="border-end col-2">
-				<p>SUM OF PLAYER COUNT</p>
+				<p>{$sumPlayerCount}</p>
 			</div>
 			<div class="col-2">
-				<p>SUM OF PLAYER VALUE</p>
+				<p>${formatMoney($sumPlayerValue)}</p>
 			</div>
 		</div>
 	</div>
 </section>
 
 <style>
+	.table-footer p {
+		text-align: center;
+	}
 </style>
