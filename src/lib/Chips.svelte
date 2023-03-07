@@ -2,11 +2,13 @@
 	import { activeChips, sumTotalCount, sumTotalValue, sumPlayerCount, sumPlayerValue } from '../store'
 	import ChipRow from './ChipRow.svelte'
 	import { formatMoney } from '../util'
+	import { Button } from 'sveltestrap'
 </script>
 
 <section>
 	<div class="subheader">
 		<h2>Chips</h2>
+		<Button color="primary">Add Chip</Button>
 	</div>
 
 	<div class="table">
@@ -31,7 +33,7 @@
 			</div>
 		</div>
 		<div class="table-body row">
-			{#each activeChips as chip}
+			{#each $activeChips as chip}
 				<ChipRow {chip} />
 			{/each}
 
@@ -61,6 +63,13 @@
 </section>
 
 <style>
+	.subheader {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 1rem;
+	}
+
+	.table-header p,
 	.table-footer p {
 		text-align: center;
 	}

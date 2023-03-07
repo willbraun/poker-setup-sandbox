@@ -27,7 +27,7 @@ export interface ChipData extends Chip {}
 const chipColors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'white', 'black', 'brown']
 const allChips = chipColors.map(color => new Chip(color))
 
-export const activeChips = allChips.slice(0, 3)
+export const activeChips = writable(allChips.slice(0, 3))
 
 export let sumTotalCount: StoreNumber = writable(0)
 export let sumTotalValue: StoreNumber = writable(0)
@@ -35,19 +35,35 @@ export let sumPlayerCount: StoreNumber = writable(0)
 export let sumPlayerValue: StoreNumber = writable(0)
 
 const getSumTotalCount = () => {
-	sumTotalCount.set(activeChips.map(chip => get(chip.totalCount)).reduce((a, b) => a + b))
+	sumTotalCount.set(
+		get(activeChips)
+			.map(chip => get(chip.totalCount))
+			.reduce((a, b) => a + b)
+	)
 }
 
 const getSumTotalValue = () => {
-	sumTotalValue.set(activeChips.map(chip => get(chip.totalCount) * get(chip.value)).reduce((a, b) => a + b))
+	sumTotalValue.set(
+		get(activeChips)
+			.map(chip => get(chip.totalCount) * get(chip.value))
+			.reduce((a, b) => a + b)
+	)
 }
 
 const getSumPlayerCount = () => {
-	sumPlayerCount.set(activeChips.map(chip => get(chip.playerCount)).reduce((a, b) => a + b))
+	sumPlayerCount.set(
+		get(activeChips)
+			.map(chip => get(chip.playerCount))
+			.reduce((a, b) => a + b)
+	)
 }
 
 const getSumPlayerValue = () => {
-	sumPlayerValue.set(activeChips.map(chip => get(chip.playerCount) * get(chip.value)).reduce((a, b) => a + b))
+	sumPlayerValue.set(
+		get(activeChips)
+			.map(chip => get(chip.playerCount) * get(chip.value))
+			.reduce((a, b) => a + b)
+	)
 }
 
 allChips.forEach(chip => {
